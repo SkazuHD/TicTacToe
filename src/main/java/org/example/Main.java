@@ -20,21 +20,25 @@ public class Main {
     }
     public static void startGame(boolean GameIsOver,char icon,char[][] field,int currentMove){
 
-        while (!GameIsOver | (currentMove > 9)){
+        while (!GameIsOver && currentMove < 9){
             PrintBoard(field);
             setPosition(field,icon);
             GameIsOver = GameIsOver(field,GameIsOver,icon);
             currentMove++;
+            System.out.println(currentMove);
             if (!GameIsOver){
                 icon = ChangeIcon(icon);
             }
-
         }
         System.out.println("-------");
         PrintBoard(field);
         if(GameIsOver){
             System.out.println("-------");
             System.out.println(icon+" Wins");
+            System.out.println("-------");
+        }else {
+            System.out.println("-------");
+            System.out.println("Nobody Wins");
             System.out.println("-------");
         }
 
