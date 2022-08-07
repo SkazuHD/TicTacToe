@@ -5,7 +5,9 @@ public class Main {
 
 
     public static void main(String[] args) {
+        int currentMove = 0;
         char icon = 'X';
+        boolean GameIsOver = false;
         char[][] field = {
                 {' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
@@ -13,10 +15,30 @@ public class Main {
                 {'-', '+', '-', '+', '-'},
                 {' ', '|', ' ', '|', ' '}};
 
-        for (int zug=0; zug<9;zug++){
-        PrintBoard(field);
-        icon = setPosition(field,icon);
+        startGame(GameIsOver,icon,field,currentMove);
+
+    }
+    public static void startGame(boolean GameIsOver,char icon,char[][] field,int currentMove){
+
+        while (!GameIsOver | (currentMove > 9)){
+            PrintBoard(field);
+            setPosition(field,icon);
+            GameIsOver = GameIsOver(field,GameIsOver,icon);
+            currentMove++;
+            if (!GameIsOver){
+                icon = ChangeIcon(icon);
+            }
+
         }
+        System.out.println("-------");
+        PrintBoard(field);
+        if(GameIsOver){
+            System.out.println("-------");
+            System.out.println(icon+" Wins");
+            System.out.println("-------");
+        }
+
+
     }
     public static void PrintBoard(char[][] field){
         for(int i=0; i<5;i++){
@@ -25,7 +47,7 @@ public class Main {
             System.out.println();
         }
     }
-    public static char setPosition(char[][] field,char icon){
+    public static void setPosition(char[][] field,char icon){
         Scanner scan = new Scanner(System.in);
         System.out.print("Place " + icon +":");
         int position = scan.nextInt();
@@ -45,11 +67,42 @@ public class Main {
                 setPosition(field, icon);
             }
         }
+
+    }
+    public static char ChangeIcon(char icon){
         if(icon == 'X'){
             icon = 'O';
             return icon ;
         }else {
-           return 'X';
+            return 'X';
         }
+    }
+    public static boolean GameIsOver(char[][] field, boolean GameIsOver, char icon){
+        if(field[0][0] == icon && field[0][2] == icon && field[0][4] == icon){
+            return true;
+        }
+        if(field[2][0] == icon && field[2][2] == icon && field[2][4] == icon){
+            return true;
+        }
+        if(field[4][0] == icon && field[4][2] == icon && field[4][4] == icon){
+            return true;
+        }
+        if (field[0][0]== icon && field[2][0]== icon && field[4][0]== icon){
+            return true;
+        }
+        if (field[0][2]== icon && field[2][2]== icon && field[4][2]== icon){
+            return true;
+        }
+        if (field[0][4]== icon && field[2][4]== icon && field[4][4]== icon){
+            return true;
+        }
+        if(field[0][0] == icon && field[2][2]== icon& field[4][4]==icon){
+            return true;
+        }
+        if (field[0][4] == icon && field[2][2]== icon& field[4][0]==icon){
+            return true;
+        }
+
+        return false;
     }
 }
