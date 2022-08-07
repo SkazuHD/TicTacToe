@@ -69,6 +69,7 @@ public class Main {
             default -> {
                 System.out.println("Wrong Input");
                 setPosition(field, icon);
+
             }
         }
 
